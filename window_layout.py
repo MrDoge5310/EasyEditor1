@@ -42,5 +42,3 @@ m_layout.addLayout(v2, stretch=2)
 window.setLayout(m_layout)
 
 window.show()
-app.exec_()
-
