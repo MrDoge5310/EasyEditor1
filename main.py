@@ -37,6 +37,36 @@ class PhotoEditor:
         except:
             QMessageBox.warning(window, "Error", "File not found =(")
 
+    def rotateLeft(self):
+        self.photo = self.photo.transpose(Image.ROTATE_90)
+        self.savePhoto()
+        self.path = os.path.join(workdir, self.editedDir, self.filename)
+        self.showPhoto()
+
+    def rotateRight(self):
+        self.photo = self.photo.transpose(Image.ROTATE_270)
+        self.savePhoto()
+        self.path = os.path.join(workdir, self.editedDir, self.filename)
+        self.showPhoto()
+
+    def mirrorPhoto(self):
+        self.photo = self.photo.transpose(Image.FLIP_LEFT_RIGHT)
+        self.savePhoto()
+        self.path = os.path.join(workdir, self.editedDir, self.filename)
+        self.showPhoto()
+
+    def blur(self):
+        self.photo = self.photo.filter(ImageFilter.BLUR)
+        self.savePhoto()
+        self.path = os.path.join(workdir, self.editedDir, self.filename)
+        self.showPhoto()
+
+    def chb(self):
+        self.photo = self.photo.convert('L')
+        self.savePhoto()
+        self.path = os.path.join(workdir, self.editedDir, self.filename)
+        self.showPhoto()
+
 
 def filterPhotos(name):
     extentions = ['.png', '.jpg', '.jpeg', '.bmp', '.gif']
@@ -69,5 +99,11 @@ def displayPhoto():
 photo = PhotoEditor()
 folder_btn.clicked.connect(chooseFolder)
 img_list.itemClicked.connect(displayPhoto)
+left_btn.clicked.connect(photo.rotateLeft)
+right_btn.clicked.connect(photo.rotateRight)
+mirror_btn.clicked.connect(photo.mirrorPhoto)
+blur_btn.clicked.connect(photo.blur)
+chb_btn.clicked.connect(photo.chb)
+
 
 app.exec_()
